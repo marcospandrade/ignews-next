@@ -16,7 +16,6 @@ type User = {
 const subscribe = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'POST') {
         const session = await getSession({ req });
-        console.log('SESSION', session);
 
         const user = await fauna.query<User>(
             q.Get(
@@ -26,8 +25,6 @@ const subscribe = async (req: NextApiRequest, res: NextApiResponse) => {
                 )
             )
         );
-
-        console.log('user', user);
 
         let customerId = user.data.stripe_customer_id;
 
