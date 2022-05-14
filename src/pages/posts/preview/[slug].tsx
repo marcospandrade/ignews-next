@@ -1,12 +1,14 @@
-import { asHTML } from '@prismicio/helpers';
-import { PrismicRichText } from '@prismicio/react';
-import { asText } from '@prismicio/richtext';
-import { GetServerSideProps, GetStaticProps } from 'next';
-import { getSession, useSession } from 'next-auth/react';
-import Head from 'next/head';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+
+import Link from 'next/link';
+import Head from 'next/head';
+import { GetStaticPaths, GetStaticProps } from 'next';
+import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
+
+import { asHTML } from '@prismicio/helpers';
+import { asText } from '@prismicio/richtext';
+
 import { getPrismicClient } from '../../../services/prismic';
 
 import styles from '../post.module.scss';
@@ -58,9 +60,16 @@ export default function PostPreview({ post }: PostPreviewProps) {
     );
 }
 
-export const getStaticPaths = () => {
+// Quais rotas eu gostaria de gerar estáticamente durante o processo de build
+export const getStaticPaths: GetStaticPaths = async () => {
     return {
-        paths: [],
+        paths: [
+            //     {
+            //         params: {
+            //             slug: '5-ferramentas-em-alta-para-desenvolvedores-react'
+            //         }
+            //     }
+        ],
         fallback: 'blocking'
     };
 };
@@ -89,6 +98,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     return {
         props: {
             post
-        }
+        },
+        redirect: 60 * 30 // 30 minutes
     };
 };
