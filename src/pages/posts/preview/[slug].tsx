@@ -64,11 +64,11 @@ export default function PostPreview({ post }: PostPreviewProps) {
 export const getStaticPaths: GetStaticPaths = async () => {
     return {
         paths: [
-            //     {
-            //         params: {
-            //             slug: '5-ferramentas-em-alta-para-desenvolvedores-react'
-            //         }
-            //     }
+            {
+                params: {
+                    slug: '5-ferramentas-em-alta-para-desenvolvedores-react'
+                }
+            }
         ],
         fallback: 'blocking'
     };
